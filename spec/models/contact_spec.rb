@@ -1,32 +1,46 @@
 require 'spec_helper'
 
 describe Contact do
+  it "has a valid factory" do
+    expect(build(:contact)).to be_valid
+  end
+
   it "is valid with a firstname, lastname and email" do
-    contact = Contact.new( firstname: "Taro",
-                           lastname: "Suzuki",
-                           email: "suzuki@example.com")
+    contact = Contact.new(
+      firstname: "Taro",
+      lastname: "Suzuki",
+      email: "suzuki@example.com")
     expect(contact).to be_valid
   end
 
   it "is invalid without a firstname" do
-    expect(Contact.new(firstname: nil)).to have(1).errors_on(:firstname)
+    contact = build(:contact, firstname: nil)
+    expect(contact).to have(1).errors_on(:firstname)
   end
 
   it "is invalid without a lastname" do
-    expect(Contact.new(lastname: nil)).to have(1).errors_on(:lastname)
+    contact = build(:contact, lastname: nil)
+    expect(contact).to have(1).errors_on(:lastname)
+  end
+
+  it "is invalid without an email address" do
+    contact = build(:contact, email: nil)
+    expect(contact).to have(1).errors_on(:email)
   end
 
   it "is invalid with a duplicate email address" do
-    Contact.create(firstname: "Jiro", lastname: "Tanaka", email: "tanaka@example.com")
-    contact = Contact.new(firstname: "Saburo", lastname: "Yamada", email: "tanaka@example.com")
+    create(:contact, email: "tanaka@example.com")
+    contact = build(:contact, email: "tanaka@example.com")
     expect(contact).to have(1).errors_on(:email)
   end
 
   it "returns a contact's full name as a string" do
-    contact = Contact.new(firstname: "Taro",
-                          lastname: "Suzuki",
-                          email: "suzuki@example.com")
-    expect(contact.name).to eq("Taro Suzuki")
+    contact = build(:contact, firstname: "Taro", lastname: "DJ")
+    expect(contact.name).to eq("Taro DJ")
+  end
+
+  it "has three phone numbers" do
+    expect(create(:contact).phones.count).to eq(3)
   end
 
   describe "filter last name by letter" do
