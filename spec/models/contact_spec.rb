@@ -6,7 +6,7 @@ describe Contact do
   end
 
   it "is valid with a firstname, lastname and email" do
-    contact = Contact.new(
+    contact = build(:contact,
       firstname: "Taro",
       lastname: "Suzuki",
       email: "suzuki@example.com")
@@ -46,9 +46,9 @@ describe Contact do
   describe "filter last name by letter" do
 
     before do
-      @suzuki = Contact.create(firstname: "Taro", lastname: "Suzuki", email: "suzuki@example.com")
-      @sayama = Contact.create(firstname: "Jiro", lastname: "Sayama", email: "tanaka@example.com")
-      @yamada = Contact.create(firstname: "Saburo", lastname: "Yamada", email: "tanaka@example.com")
+      @suzuki = create(:contact, firstname: "Taro", lastname: "Suzuki", email: "suzuki@example.com")
+      @sayama = create(:contact, firstname: "Jiro", lastname: "Sayama", email: "sayama@example.com")
+      @yamada = create(:contact, firstname: "Saburo", lastname: "Yamada", email: "yamada@example.com")
     end
 
     context "matching letters" do

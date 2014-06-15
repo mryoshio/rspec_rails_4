@@ -8,5 +8,9 @@ FactoryGirl.define do
         c.phones << build(:phone, phone_type: phone_type, contact: c)
       end
     end
+
+    factory :invalid_contact do
+      firstname nil
+    end
   end
 end
