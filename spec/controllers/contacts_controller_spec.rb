@@ -163,4 +163,18 @@ describe ContactsController do
     end
   end
 
+  describe 'CSV output' do
+    it "returns a CSV file" do
+      get :index, format: :csv
+      expect(response.headers['Content-Type']).to have_content 'text/csv'
+
+    end
+
+    it "returns content" do
+      create(:contact, firstname: 'Taro', lastname: 'YAMADA', email: 'taro.y@example.com')
+      get :index, format: :csv
+      expect(response.body).to have_content 'Taro','YAMADA','taro.y@example.com'
+    end
+  end
+
 end
