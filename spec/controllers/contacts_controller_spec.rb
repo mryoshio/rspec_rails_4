@@ -28,7 +28,7 @@ describe ContactsController do
         get :index
       end
 
-      it "populates an array of contacts" do
+      it "populates an array of contacts", focust: true do
         expect(assigns(:contacts)).to match_array [contact]
       end
 
