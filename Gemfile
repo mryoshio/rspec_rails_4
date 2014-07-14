@@ -63,6 +63,7 @@ group :test do
   gem "launchy", "~> 2.3.0"
   gem "shoulda-matchers", "~> 2.2.0"
   gem "selenium-webdriver", "~> 2.35.1"
+  gem 'email_spec'
 end
 
 gem "twitter-bootstrap-rails", "~> 2.2.8"

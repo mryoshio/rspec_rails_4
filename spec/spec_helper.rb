@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'spork'
 require 'database_cleaner'
+require 'action_mailer'
+require 'email_spec'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
@@ -28,8 +30,11 @@ Spork.prefork do
     # Include Factory Girl syntax to simplify calls to factories
     config.include FactoryGirl::Syntax::Methods
 
-    config.filter_run focus: true
-    config.filter_run_excluding slow: true
+    # config.filter_run focus: true
+    # config.filter_run_excluding slow: true
+
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
   end
 end
 
